@@ -1,11 +1,14 @@
-### 1. 
-<code>SELECT payment_status, COUNT(1) AS cnt, SUM(total_amount) AS sum, AVG(total_amount) AS avg 
+### 1. Группировка по payment_status: подсчитываем количество заказов, сумму (total_amount), среднюю стоимость заказа
+<code>SELECT payment_status, 
+&nbsp;&nbsp;COUNT(1) AS cnt, 
+&nbsp;&nbsp;SUM(total_amount) AS sum, 
+&nbsp;&nbsp;AVG(total_amount) AS avg 
 FROM orders 
 GROUP BY payment_status</code>
 
 <img width="724" alt="image" src="https://github.com/user-attachments/assets/e3ee6368-6023-4d7f-afbb-d8f94ad825b3" />
 
-### 2
+### 2. JOIN с order_items: подсчитать общее количество товаров, общую сумму, среднюю цену за продукт
 <code>SELECT order_id, user_id, cnt_items, sum_items_price, avg_items_price 
 FROM orders 
 LEFT JOIN (
@@ -19,15 +22,18 @@ ON orders.order_id = grouped_items.order_id </code>
 
 <img width="827" alt="image" src="https://github.com/user-attachments/assets/3d46d2a0-e4dd-444e-9a01-788f7b7f2673" />
 
-### 3 
-<code>SELECT date(order_date), COUNT(1) AS cnt, SUM(total_amount) AS sum 
+### 3. Отдельно посмотреть статистику по датам (количество заказов и их суммарная стоимость за каждый день)
+<code>SELECT date(order_date), 
+&nbsp;&nbsp;COUNT(1) AS cnt, 
+&nbsp;&nbsp;SUM(total_amount) AS sum 
 FROM orders 
 GROUP BY date(order_date)</code>
 
 <img width="829" alt="image" src="https://github.com/user-attachments/assets/b2f2ea5f-8f03-4ba5-95e0-159e01a6b5d7" />
 
-### 4
-<code>SELECT user_id, SUM(total_amount) AS sum 
+### 4. Выделить «самых активных» пользователей (по сумме заказов или по количеству заказов)
+<code>SELECT user_id, 
+&nbsp;&nbsp;SUM(total_amount) AS sum 
 FROM orders 
 GROUP BY user_id 
 ORDER BY sum DESC 
