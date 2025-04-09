@@ -27,7 +27,13 @@ group by date(transaction_date)</code>
 <img width="456" alt="image" src="https://github.com/user-attachments/assets/fc1200c3-5d3e-4df4-8df5-eb56ee985d8a" />
 
 ### 4.
-<code></code>
+<code>sum(amount) over (
+    partition by to_date(transaction_date)
+) as day_sum
+from transactions_v2
+order by day_sum desc</code>
+
+<img width="494" alt="image" src="https://github.com/user-attachments/assets/92b12660-7962-422a-9d6c-a4e9650f0bad" />
 
 ### 5. 
 <code>select tr.transaction_id, count(1) as cnt
